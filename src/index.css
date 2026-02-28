@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@layer base {
+  html {
+    @apply bg-indigo-100;
+  }
+  body {
+    @apply m-auto max-w-7xl px-4;
+  }
+}

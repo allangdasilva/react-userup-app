@@ -1,7 +1,11 @@
+import Header from "./components/Header";
+import Users from "./components/Users";
+
 function App() {
   return (
     <>
-      <h1>Home</h1>
+      <Header />
+      <Users />
     </>
   );
 }
