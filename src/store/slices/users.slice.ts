@@ -7,7 +7,16 @@ export const createUsersSlice: StateCreator<
   [["zustand/devtools", never], ["zustand/persist", unknown]],
   [],
   UsersSlice
-> = (set) => ({
+> = (set, get) => ({
   users: users,
-  updatedUser: (newValue) => set((state) => ({ users })),
+  updatedUser: async (newValue) => {
+    const users = get().users;
+    const updated = users.map((user) =>
+      user.id === newValue.id ? newValue : user,
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    set({ users: updated });
+  },
 });

@@ -5,7 +5,7 @@ export interface UsersSlice {
 
 export interface User {
   id: number;
-  nome: string;
-  cargo: string;
+  name: string;
+  role: string;
   email: string;
 }
