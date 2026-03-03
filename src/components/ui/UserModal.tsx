@@ -5,6 +5,7 @@ import { useBoundStore } from "../../store/bound.store";
 import { useShallow } from "zustand/shallow";
 import Spinner from "../svgs/Spinner";
 import Edit from "../svgs/Edit";
+import Close from "../svgs/Close";
 
 const UserModal = ({ user }: { user: User }) => {
   const [open, setOpen] = React.useState(false);
@@ -36,12 +37,21 @@ const UserModal = ({ user }: { user: User }) => {
       {/* Portal: joga o elemento no final da árvore DOM (facilitando para que o modal esteja acima dos outros elementos)*/}
       <Dialog.Portal>
         {/* Overlay: funciona como o background */}
-        <Dialog.Overlay className="fixed flex items-start justify-center min-h-dvh overflow-y-auto py-4 inset-0 bg-black/40">
+        <Dialog.Overlay className="fixed inset-0 bg-black/40" />
+
+        <div className="fixed inset-0 flex items-start justify-center min-h-dvh overflow-y-auto py-4">
           {/* Radix vai adicionar um atributo data-state que vai nos informar se o o modal está open ou closed, podemos adicionar estilizição no tailwind baseado nesse atributo */}
-          <Dialog.Content className="w-full max-w-md p-4 my-auto rounded-xl data-[state=closed]:animate-[dialog-content-out_300ms_forwards] data-[state=open]:animate-[dialog-content-in_300ms]  bg-white">
+          <Dialog.Content
+            forceMount
+            className="w-full max-w-md p-4 my-auto rounded-xl bg-white
+            data-[state=open]:animate-[dialog-content-in_300ms]
+            data-[state=closed]:animate-[dialog-content-out_300ms_forwards]"
+          >
             <div className="flex justify-between mb-4 text-xl">
               <Dialog.Title>Editar Usuário</Dialog.Title>
-              <Dialog.Close>X</Dialog.Close>
+              <Dialog.Close className="cursor-pointer">
+                <Close />
+              </Dialog.Close>
             </div>
             <Dialog.Description className="sr-only">
               Editar informações do usuário
@@ -58,7 +68,7 @@ const UserModal = ({ user }: { user: User }) => {
               </div>
             </UserFields>
           </Dialog.Content>
-        </Dialog.Overlay>
+        </div>
       </Dialog.Portal>
     </Dialog.Root>
   );
